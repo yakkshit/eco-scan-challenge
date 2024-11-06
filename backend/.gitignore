@@ -1,0 +1,42 @@
+# Logs
+logs/**/*.log
+*.log
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# Build artifacts
+*.egg
+*.egg-info
+dist/
+build/
+*.o
+*.so
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# Testing
+.pytest_cache/
+.mypy_cache/
+coverage/
+
+# Other
+*.zip
+*.tmp
+*.bak
+Thumbs.db
+.DS_Store
+
+# Environment files
+.env
+.env.local
+.vercel

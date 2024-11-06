@@ -1,0 +1,46 @@
+{
+    "title": "Eco Scan",
+    "content": "Lorem Ipsum",
+    "herosction": {
+        "h1": "Welcome to ",
+        "tagline": "Your Wardrobe's Carbon Footprint, Exposed. Hack the System, Hack the Impact."
+    },
+    "upload-button": {
+        "uploadtext": "Click to upload",
+        "dragtext": "or drag and drop",
+        "fileformats": "PNG, JPG, GIF up to 10MB",
+        "newupload": "New Upload",
+        "closetext": "Close"
+    },
+    "error-text": {
+        "handleUpload": {
+            "errortext1": "Error uploading image:",
+            "errortext2": ""
+        }
+    },
+    "components-text": {
+        "carbonfootprint": {
+            "text1": "Carbon Footprint",
+            "modelused": "Model used to Process this Image is",
+            "imagestatus": "Image Status is"
+        },
+        "coupons": {
+            "text1": "Available Coupons",
+            "limitedtime" : "limitedtime",
+            "claim": "Claim Now",
+            "validtime": "Valid for the next 24 hours"
+        },
+        "history": {
+            "history": "History",
+            "ecosavings": "Eco Savings"
+        },
+        "rewards": {
+            "rewards" : "Eco-Savings Wallet",
+            "walletbalance": "Total Wallet Balance",
+            "currentreward": "Current Reward:",
+            "recenttranctions": "Recent Transactions",
+            "ecoreward": "Eco Reward",
+            "redeem": "Redeem"
+        }
+    }
+}
