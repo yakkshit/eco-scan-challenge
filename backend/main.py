@@ -1,22 +1,24 @@
 from fastapi import FastAPI, HTTPException, Depends, File, UploadFile
 from fastapi.responses import JSONResponse  
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
-from pydantic import BaseModel
 from typing import List, Dict, Optional
+from pydantic import BaseModel
 import random
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from dotenv import load_dotenv
 import google.generativeai as genai
-import aiofiles
 import os
+import aiofiles.tempfile
+import uvicorn
 
 load_dotenv()
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+genai.configure(api_key=os.getenv("AIzaSyDYUo3LFaralhTXZBW_Nro0QDH0wb1UxXU"))
 
 # Load valid users from the environment variable
 valid_users = {
-    os.getenv("USER"): os.getenv("PASSWORD")
+    # os.getenv("USER"): os.getenv("PASSWORD"),
+    "yakkshit":"qwerty",
 }
 
 # Load company coupons from the environment variable
@@ -40,13 +42,6 @@ company_coupons = [
 app = FastAPI()
 security = HTTPBasic()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Adjust for production
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # Predefined data
 default_carbonfootprints = {
@@ -103,10 +98,10 @@ def calculate_carbon_footprint(data: CarbonFootprintInput, modelUsed: str) -> Ca
     carbon_footprint = {}
     
     # Check if all items are invalid or if category is unknown and items are invalid
-    if (data.category == "unknown" and all(item.lower() == "invalid" for item in data.items)) or \
-       (data.category == "invalid" and len(data.items) == 0):
+    if (data.category == "unknown" and all(item.lower() == "invalid" or item.lower() == "unknown" for item in data.items)) or \
+       (data.category == "invalid" and (len(data.items) == 0 or all(item.lower() == "invalid" or item.lower() == "unknown" for item in data.items))):
         carbon_footprint = {"invalid image": "0"}
-    else:
+    elif len(data.items) > 0:
         # Process each item
         for item in data.items:
             if item.lower() == "invalid":
@@ -122,12 +117,14 @@ def calculate_carbon_footprint(data: CarbonFootprintInput, modelUsed: str) -> Ca
                     random_footprint = round(random.uniform(1, 5), 2)
                     carbon_footprint[item] = f"{random_footprint}kg"
     
-    # Calculate total footprint excluding invalid items
-    total_footprint = sum(
-        float(value.replace('kg', '')) 
-        for value in carbon_footprint.values()
-        if value != "0"
-    )
+    total_footprint = 0.0
+    if len(carbon_footprint) > 0 and "invalid image" not in carbon_footprint:
+        # Calculate total footprint excluding invalid items
+        total_footprint = sum(
+            float(value.replace('kg', '')) 
+            for value in carbon_footprint.values()
+            if value != "0kg"
+        )
     
     # Calculate carbon score as eco-savings points
     ecosaving = total_footprint * 2.0  # Example multiplier for eco points where 1kg = 2ecopoints
@@ -165,7 +162,9 @@ async def upload_image(file: UploadFile = File(...), credentials: HTTPBasicCrede
     # Save the file temporarily using async file handling
     async with aiofiles.tempfile.NamedTemporaryFile(delete=False) as temp_file:
         file_path = temp_file.name
-        await temp_file.write(await file.read())
+        content = await file.read()  # Read the content
+        print(f"Read content size: {len(content)} bytes")  # Debugging line
+        await temp_file.write(content)
 
     try:
         # Upload file to Gemini API
@@ -207,5 +206,4 @@ async def general_exception_handler(request, exc):
     )
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000) 
+    uvicorn.run(app, host="127.0.0.1", port=8000)

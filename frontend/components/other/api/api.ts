@@ -17,14 +17,12 @@ export interface ApiResponse {
 export async function uploadImage(file: File): Promise<ApiResponse> {
   const formData = new FormData()
   formData.append('file', file)
-  console.log(process.env.API_USERNAME)
-  console.log(process.env.API_PASSWORD)
 
   try {
     const response = await fetch('http://127.0.0.1:8000/upload', {
       method: 'POST',
       headers: {
-        'Authorization': 'Basic ' + btoa(`${process.env.API_USERNAME}:${process.env.API_PASSWORD}`)
+        'Authorization': 'Basic ' + btoa('yakkshit:qwerty') //needed fix unable to import from .env variables
       },
       body: formData
     })
