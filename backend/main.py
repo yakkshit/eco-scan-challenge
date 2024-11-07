@@ -13,12 +13,11 @@ import aiofiles.tempfile
 import uvicorn
 
 load_dotenv()
-genai.configure(api_key=os.getenv("AIzaSyDYUo3LFaralhTXZBW_Nro0QDH0wb1UxXU"))
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 # Load valid users from the environment variable
 valid_users = {
-    # os.getenv("USER"): os.getenv("PASSWORD"),
-    "yakkshit":"qwerty",
+    os.getenv("USER"): os.getenv("PASSWORD"),
 }
 
 # Load company coupons from the environment variable
