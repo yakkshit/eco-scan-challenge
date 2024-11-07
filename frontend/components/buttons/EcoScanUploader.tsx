@@ -2,12 +2,12 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { uploadImage } from "../other/api/api";
 import CarbonFootprint from "../other/CarbonFootprint";
 import CouponsSection from "../other/CouponsSection";
 import HistorySection from "../other/History";
-import data from "@/dictonary/data.json";
+import data from "../../dictonary/data.json";
 import RewardsSection from "../other/RewardsSection";
+import { uploadImage } from "../other/api/api";
 
 interface ApiResponse {
   carbonfootprint: {
@@ -181,7 +181,9 @@ export default function EcoScanUploader() {
     reader.readAsDataURL(file);
 
     try {
+      console.log('Uploading file:', file.name, 'Size:', file.size, 'Type:', file.type);
       const response = await uploadImage(file);
+      console.log('API Response:', response);
       setApiResponse(response);
       if (response.image === "invalid") {
         setError("The uploaded image is invalid. Please try again with a different image.");
@@ -192,14 +194,17 @@ export default function EcoScanUploader() {
       }
     } catch (error) {
       console.error("Error uploading image:", error);
-      setError(
-        "Failed to upload image. Please check your internet connection and try again."
-      );
+      if (error instanceof Error) {
+        setError(`Failed to upload image: ${error.message}`);
+      } else {
+        setError("Failed to upload image. Please check your internet connection and try again.");
+      }
       setApiResponse(null);
     } finally {
       setIsUploading(false);
     }
   };
+
 
   const resetUpload = () => {
     setImage(null);

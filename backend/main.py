@@ -14,13 +14,14 @@ import uvicorn
 
 load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+modelUsed = os.getenv("GEMINI_MODEL")
 
 # Load valid users from the environment variable
 valid_users = {
     os.getenv("USER"): os.getenv("PASSWORD"),
 }
 
-# Load company coupons from the environment variable
+# Load company coupons 
 company_coupons = [
     {"title": "Eco Store", "price": "$5", "link": "https://yakkshit.com"},
     {"title": "Green Products Co.", "price": "$10", "link": "https://yakkshit.com"},
@@ -41,6 +42,13 @@ company_coupons = [
 app = FastAPI()
 security = HTTPBasic()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Predefined data
 default_carbonfootprints = {
@@ -62,7 +70,6 @@ default_carbonfootprints = {
     "others": "1kg",
     "blazer": "4kg"
 }
-
 
 # Data models
 class CarbonFootprintInput(BaseModel):
@@ -86,9 +93,11 @@ class CarbonFootprintOutput(BaseModel):
 
 # Helper functions
 def generate_random_coupons(count: int) -> List[Coupon]:
+    # Pick some random coupons from the list
     return random.sample([Coupon(**c) for c in company_coupons], min(count, len(company_coupons)))
 
 async def authenticate(credentials: HTTPBasicCredentials = Depends(security)):
+    # Check if the username and password are correct
     correct_password = valid_users.get(credentials.username)
     if correct_password != credentials.password:
         raise HTTPException(status_code=401, detail="Invalid credentials.")
@@ -126,7 +135,7 @@ def calculate_carbon_footprint(data: CarbonFootprintInput, modelUsed: str) -> Ca
         )
     
     # Calculate carbon score as eco-savings points
-    ecosaving = total_footprint * 2.0  # Example multiplier for eco points where 1kg = 2ecopoints
+    ecosaving = total_footprint * 2.0  # eco points where 1kg = 2ecopoints
 
     # Generate random coupons
     coupons = generate_random_coupons(random.randint(0, 12))
@@ -168,8 +177,7 @@ async def upload_image(file: UploadFile = File(...), credentials: HTTPBasicCrede
     try:
         # Upload file to Gemini API
         myfile = genai.upload_file(file_path, mime_type="image/png")
-        model = genai.GenerativeModel("gemini-1.5-flash")
-        modelUsed = "gemini-1.5-flash"
+        model = genai.GenerativeModel(modelUsed)
         
         result = model.generate_content(
             [
@@ -194,8 +202,7 @@ async def upload_image(file: UploadFile = File(...), credentials: HTTPBasicCrede
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
-
+    return {"message": "Test Successful"} # created for testing
 
 @app.exception_handler(Exception)
 async def general_exception_handler(request, exc):
@@ -204,5 +211,8 @@ async def general_exception_handler(request, exc):
         content={"detail": "An unexpected error occurred."}
     )
 
+async def handler(req, res):
+    return await app(req, res) 
+
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=80)
+    uvicorn.run(app, host="127.0.0.1", port=8000)

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import dict from "@/dictonary/data.json"
+import dict from "../../dictonary/data.json";
 
 interface CarbonFootprintProps {
   data: {

@@ -1,24 +1,49 @@
+# Eco Scan Frontend
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+### Steps to Run the Application
+
+After cloning the repository, follow these steps to set up and run the application:
+
+1. **Install Dependencies**: 
+   Navigate to the project directory and install the required dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. **Set Up Environment Variables**:
+   Create a `.env` file in the root directory and add the necessary environment variables. Refer to the `.env.example` file if provided. Example:
+
+   ```plaintext
+   # Example environment variables
+   API_USERNAME=<your_api_name>
+   API_PASSWORD=<your_api_key>
+   ```
+
+3. **Run the Development Server**:
+   Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+
+### Running Unit Tests
+
+This project uses the `vite` testing framework from Next.js, with test files located in the `__tests__` folder.
+
+To run tests, use the following command:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run test
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Ensure that the `.env` file is correctly set up before running tests.
 
 ## Learn More
 

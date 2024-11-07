@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import dic from "@/dictonary/data.json";
+import dic from "../../dictonary/data.json";
 
 interface Transaction {
   amount: number;

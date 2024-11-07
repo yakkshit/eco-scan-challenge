@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import dic from "@/dictonary/data.json"
+import dic from "../../dictonary/data.json"
 
 interface ApiResponse {
   carbonfootprint: {

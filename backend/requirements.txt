@@ -1,7 +1,8 @@
 fastapi
 uvicorn
 pydantic
-aiofiles
 python-dotenv
 google-generativeai
-random2
+aiofiles
+pytest
+python-multipart

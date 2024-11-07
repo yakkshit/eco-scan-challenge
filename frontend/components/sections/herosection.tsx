@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import data from "@/dictonary/data.json";
+import data from "../../dictonary/data.json"
 import React from "react";
-import EcoScanUploader from "../buttons/uploadbutton";
+import EcoScanUploader from "../buttons/EcoScanUploader";
 
 const heroVariants = {
   hidden: { opacity: 0, y: -50 },
@@ -22,7 +22,7 @@ const taglineVariants = {
 
 export const HeroSection = () => {
   return (
-    <div className="flex flex-col dark:bg-black bg-white min-h-screen justify-center items-center">
+    <div className="flex flex-col dark:bg-black bg-white min-h-screen justify-center items-center" data-testid="app-hero">
       <motion.div
         className="justify-center items-center rounded-[25px] m-2"
         initial="hidden"
