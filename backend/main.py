@@ -7,10 +7,14 @@ import random
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from dotenv import load_dotenv
-import google.generativeai as genai
 import os
 import aiofiles.tempfile
 import uvicorn
+
+try:
+    import google.generativeai as genai
+except ImportError:
+    genai = None
 
 load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
@@ -24,19 +28,19 @@ valid_users = {
 # Load company coupons 
 company_coupons = [
     {"title": "Eco Store", "price": "$5", "link": "https://yakkshit.com"},
-    {"title": "Green Products Co.", "price": "$10", "link": "https://yakkshit.com"},
+    {"title": "Green Products Co.", "price": "$1", "link": "https://yakkshit.com"},
     {"title": "Sustainable Fashion", "price": "$15", "link": "https://yakkshit.com"},
     {"title": "Organic Marketplace", "price": "$7", "link": "https://yakkshit.com"},
-    {"title": "Renewable Goods", "price": "$12", "link": "https://yakkshit.com"},
+    {"title": "Renewable Goods", "price": "$1", "link": "https://yakkshit.com"},
     {"title": "Eco-Friendly Apparel", "price": "$8", "link": "https://yakkshit.com"},
     {"title": "Green Living Essentials", "price": "$20", "link": "https://yakkshit.com"},
     {"title": "Conscious Clothing", "price": "$25", "link": "https://yakkshit.com"},
     {"title": "Nature's Best", "price": "$18", "link": "https://yakkshit.com"},
-    {"title": "Planet-Friendly Products", "price": "$14", "link": "https://yakkshit.com"},
-    {"title": "Ethical Fashion Hub", "price": "$22", "link": "https://yakkshit.com"},
+    {"title": "Planet-Friendly Products", "price": "$1", "link": "https://yakkshit.com"},
+    {"title": "Ethical Fashion Hub", "price": "$2", "link": "https://yakkshit.com"},
     {"title": "Sustainable Home Goods", "price": "$9", "link": "https://yakkshit.com"},
-    {"title": "Zero Waste Shop", "price": "$11", "link": "https://yakkshit.com"},
-    {"title": "Green Tech Solutions", "price": "$30", "link": "https://yakkshit.com"}
+    {"title": "Zero Waste Shop", "price": "$1", "link": "https://yakkshit.com"},
+    {"title": "Green Tech Solutions", "price": "$3", "link": "https://yakkshit.com"}
 ]
 
 app = FastAPI()
@@ -92,9 +96,16 @@ class CarbonFootprintOutput(BaseModel):
     total_footprint: float
 
 # Helper functions
-def generate_random_coupons(count: int) -> List[Coupon]:
-    # Pick some random coupons from the list
-    return random.sample([Coupon(**c) for c in company_coupons], min(count, len(company_coupons)))
+def generate_random_coupons(total_footprint: float) -> List[Coupon]:
+    # Filter the coupons based on the total_footprint
+    filtered_coupons = [Coupon(**c) for c in company_coupons if float(c['price'].replace('$', '')) <= total_footprint]
+    
+    # If there are no coupons that match the total_footprint, return an empty list
+    if not filtered_coupons:
+        return []
+    
+    # Otherwise, return a random sample of the filtered coupons
+    return random.sample(filtered_coupons, min(len(filtered_coupons), 3))
 
 async def authenticate(credentials: HTTPBasicCredentials = Depends(security)):
     # Check if the username and password are correct
@@ -138,7 +149,7 @@ def calculate_carbon_footprint(data: CarbonFootprintInput, modelUsed: str) -> Ca
     ecosaving = total_footprint * 2.0  # eco points where 1kg = 2ecopoints
 
     # Generate random coupons
-    coupons = generate_random_coupons(random.randint(0, 12))
+    coupons = generate_random_coupons(total_footprint)
     coupontotal = f"The Eco-Savings points you received for this transaction is ${ecosaving:.2f}."
 
     return CarbonFootprintOutput(
@@ -175,6 +186,9 @@ async def upload_image(file: UploadFile = File(...), credentials: HTTPBasicCrede
         await temp_file.write(content)
 
     try:
+        if genai is None:
+            raise HTTPException(status_code=500, detail="Google Generative AI library not installed.")
+        genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
         # Upload file to Gemini API
         myfile = genai.upload_file(file_path, mime_type="image/png")
         model = genai.GenerativeModel(modelUsed)

@@ -6,3 +6,4 @@ google-generativeai
 aiofiles
 pytest
 python-multipart
+google-ai-generativelanguage

@@ -22,7 +22,7 @@ export async function uploadImage(file: File): Promise<ApiResponse> {
     const response = await fetch('https://surviving-condor-cedz-dfdfcde1.koyeb.app/upload', {
       method: 'POST',
       headers: {
-        'Authorization': 'Basic ' + btoa('yakkshit:qwerty') //needed fix unable to import from .env variables
+        'Authorization': 'Basic ' + btoa(`${process.env.NEXT_PUBLIC_AUTH_USERNAME}:${process.env.NEXT_PUBLIC_AUTH_PASSWORD}`) //needed fix unable to import from .env variables
       },
       body: formData
     })
