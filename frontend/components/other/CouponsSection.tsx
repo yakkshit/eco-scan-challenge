@@ -25,7 +25,7 @@ export default function CouponsSection({ coupons }: CouponsSectionProps) {
   const renderCoupons = (couponsToRender: Coupon[]) => {
     return couponsToRender.map((coupon, index) => {
       const randomGradient = gradients[Math.floor(Math.random() * gradients.length)]
-      const isLimitedTime = Math.random() < 0.5 // 50% chance of being a limited time offer
+      const isLimitedTime = Math.random() < 0.5 // 50% limited time offer
 
       return (
         <motion.div

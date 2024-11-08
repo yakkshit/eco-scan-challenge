@@ -7,3 +7,4 @@ aiofiles
 pytest
 python-multipart
 google-ai-generativelanguage
+httpx

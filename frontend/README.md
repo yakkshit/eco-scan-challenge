@@ -8,22 +8,21 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 After cloning the repository, follow these steps to set up and run the application:
 
-1. **Install Dependencies**: 
+1. **Install Dependencies**:
    Navigate to the project directory and install the required dependencies:
 
    ```bash
    npm install
    ```
-
 2. **Set Up Environment Variables**:
    Create a `.env` file in the root directory and add the necessary environment variables. Refer to the `.env.example` file if provided. Example:
 
    ```plaintext
    # Example environment variables
-   API_USERNAME=<your_api_name>
-   API_PASSWORD=<your_api_key>
+   NEXT_PUBLIC_API_USERNAME=<your_api_name>
+   NEXT_PUBLIC_API_PASSWORD=<your_api_key>
+   NEXT_PUBLIC_API_URI=YOUR_API_URI
    ```
-
 3. **Run the Development Server**:
    Start the development server:
 

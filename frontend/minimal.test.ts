@@ -19,7 +19,6 @@ describe('Minimal test suite', () => {
   });
 
   it('should show loading state', () => {
-    // Assuming you have a loading state in your app
     const isLoading = true;
     expect(isLoading).toBe(true);
   });
@@ -30,7 +29,6 @@ describe('Minimal test suite', () => {
   });
 
   it('should handle an asynchronous operation', async () => {
-    // Assuming you have an asynchronous function
     const asyncFunction = () => new Promise((resolve) => setTimeout(resolve, 1000));
     await asyncFunction();
     expect(true).toBe(true);

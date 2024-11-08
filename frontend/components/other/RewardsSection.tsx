@@ -36,7 +36,7 @@ export default function RewardsSection({ ecosavings, message, history }: Rewards
   useEffect(() => {
     const newTransactions: Transaction[] = history.map(item => ({
       amount: item.ecosavings,
-      timestamp: Date.now(), // Note: You might want to add actual timestamps to your history items
+      timestamp: Date.now(), 
     }));
 
     setTransactions(newTransactions);

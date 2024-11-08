@@ -17,13 +17,11 @@ This is the backend service for the Eco-Scan Challenge, built using [FastAPI](ht
    git clone <repository-url>
    cd eco-scan-challenge/backend
    ```
-
 2. **Create a virtual environment:**
 
    ```bash
    python -m venv venv
    ```
-
 3. **Activate the virtual environment:**
 
    - On Windows:
@@ -31,13 +29,11 @@ This is the backend service for the Eco-Scan Challenge, built using [FastAPI](ht
      ```bash
      venv\Scripts\activate
      ```
-
    - On macOS and Linux:
 
      ```bash
      source venv/bin/activate
      ```
-
 4. **Install the dependencies:**
 
    ```bash
@@ -46,7 +42,7 @@ This is the backend service for the Eco-Scan Challenge, built using [FastAPI](ht
 
 ### Environment Variables
 
-Create a `.env` file in the `backend` directory and add the following variables:
+Create a `.env` file in the `backend` directory and add the following variables or check for  `.env.example`:
 
 ```plaintext
 GEMINI_API_KEY=your_gemini_api_key
@@ -103,7 +99,6 @@ extension-pkg-allow-list=pydantic
 ```
 
 This configuration allows [Pylint](https://pylint.org/) to recognize the `pydantic` module correctly.
-
 
 ## Additional Information
 
