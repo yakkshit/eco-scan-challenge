@@ -104,8 +104,8 @@ def generate_random_coupons(total_footprint: float) -> List[Coupon]:
     if not filtered_coupons:
         return []
     
-    # Otherwise, return a random sample of the filtered coupons
-    return random.sample(filtered_coupons, min(len(filtered_coupons), 3))
+    # Otherwise, return filtered coupons
+    return filtered_coupons
 
 async def authenticate(credentials: HTTPBasicCredentials = Depends(security)):
     # Check if the username and password are correct
@@ -210,7 +210,7 @@ async def upload_image(file: UploadFile = File(...), credentials: HTTPBasicCrede
         response_data = calculate_carbon_footprint(CarbonFootprintInput(**processed_data), modelUsed)
 
     finally:
-        os.remove(file_path)  # Ensure cleanup of temp file
+        os.remove(file_path)  # cleanup of temp file
 
     return JSONResponse(content=response_data.dict())
 

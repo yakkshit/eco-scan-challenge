@@ -8,7 +8,6 @@ This is the backend service for the Eco-Scan Challenge, built using [FastAPI](ht
 
 - [Python 3.8](https://www.python.org/downloads/release/python-380/) or higher
 - [Git](https://git-scm.com/)
-- [Vercel CLI](https://vercel.com/download)
 
 ### Installation
 
@@ -105,43 +104,6 @@ extension-pkg-allow-list=pydantic
 
 This configuration allows [Pylint](https://pylint.org/) to recognize the `pydantic` module correctly.
 
-## Deploying to Vercel
-
-To deploy your FastAPI application to Vercel, follow these steps:
-
-1. **Install Vercel CLI:**
-
-   Make sure you have the Vercel CLI installed. If not, you can install it using npm:
-
-   ```bash
-   npm install -g vercel
-   ```
-
-2. **Login to Vercel:**
-
-   Log in to your Vercel account using the CLI:
-
-   ```bash
-   vercel login
-   ```
-
-3. **Deploy the Application:**
-
-   From the `backend` directory, run the following command to deploy your application:
-
-   ```bash
-   vercel
-   ```
-
-   Follow the prompts to set up your project. Vercel will automatically detect your FastAPI setup and deploy it.
-
-4. **Set Environment Variables:**
-
-   After deployment, set your environment variables in the Vercel dashboard under the "Environment Variables" section.
-
-5. **Visit Your Deployed Application:**
-
-   Once deployed, Vercel will provide a URL where your application is hosted. You can visit this URL to access your FastAPI application.
 
 ## Additional Information
 

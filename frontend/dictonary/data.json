@@ -41,6 +41,23 @@
             "recenttranctions": "Recent Transactions",
             "ecoreward": "Eco Reward",
             "redeem": "Redeem"
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "questions" : {
+                "question1": "Are you storing the images?",
+                "question2": "How accurate is the carbon footprint calculation?",
+                "question3": "Can I use EcoScan for commercial purposes?",
+                "question4": "How often is the database updated?",
+                "question5": "Is my data secure?"
+              },
+            "answers":  {
+                "answer1": "No, we are not storing the images. We simply upload the image to Gemini for analysis and then discard it.",
+                "answer2": "Our carbon footprint calculation is based on the latest research and data. While it provides a good estimate, please note that it may not be 100% accurate for all scenarios.",
+                "answer3": "EcoScan is primarily designed for personal use. For commercial applications, please contact our support team to discuss licensing options.",
+                "answer4": "We update our database regularly to ensure the most accurate and up-to-date information. Major updates occur quarterly, with minor updates happening more frequently.",
+                "answer5": "Yes, we take data security very seriously. We use industry-standard encryption and security measures to protect your information. We do not store or share any personal data without your explicit consent."
+              }
         }
     }
 }

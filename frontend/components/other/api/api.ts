@@ -19,7 +19,7 @@ export async function uploadImage(file: File): Promise<ApiResponse> {
   formData.append('file', file)
 
   try {
-    const response = await fetch('https://surviving-condor-cedz-dfdfcde1.koyeb.app/upload', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URI}/upload`, {
       method: 'POST',
       headers: {
         'Authorization': 'Basic ' + btoa(`${process.env.NEXT_PUBLIC_AUTH_USERNAME}:${process.env.NEXT_PUBLIC_AUTH_PASSWORD}`) //needed fix unable to import from .env variables
