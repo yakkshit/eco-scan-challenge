@@ -87,10 +87,6 @@ pytest        # for backend tests
 
 Ensure that the `.env` file is correctly set up before running tests.
 
----
-
-Okay, here is the updated "Carbon Score Assumptions" section with the additional details you provided about the backend implementation:
-
 ## 🌱 Carbon Score Assumptions (**Carbon Score & Reward Logic**).
 
 To calculate the environmental impact of each clothing item, we have assigned approximate carbon scores based on item type. These scores are stored in an in-memory dictionary for quick access.
