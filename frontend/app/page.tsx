@@ -1,11 +1,11 @@
-import FAQPage from "@/components/sections/faq";
 import { HeroSection } from "@/components/sections/herosection";
 
 export default function Home() {
   return (
-    <div>
-      <HeroSection />
-      <FAQPage/>
+    <div className="flex flex-col min-h-screen">
+      <section className="flex-grow">
+        <HeroSection />
+      </section>
     </div>
   );
 }

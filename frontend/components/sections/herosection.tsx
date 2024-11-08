@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import data from "../../dictonary/data.json"
 import React from "react";
 import EcoScanUploader from "../buttons/EcoScanUploader";
+import FAQPage from "./faq";
 
 const heroVariants = {
   hidden: { opacity: 0, y: -50 },
@@ -22,7 +23,7 @@ const taglineVariants = {
 
 export const HeroSection = () => {
   return (
-    <div className="flex flex-col dark:bg-black bg-white min-h-screen justify-center items-center" data-testid="app-hero">
+    <div className="flex flex-col dark:bg-black bg-white min-h-screen justify-center items-center p-2">
       <motion.div
         className="justify-center items-center rounded-[25px] m-2"
         initial="hidden"
@@ -54,6 +55,7 @@ export const HeroSection = () => {
 
         <motion.div className="h-[170px] p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
           <EcoScanUploader />
+          <FAQPage/>
         </motion.div>
       </motion.div>
     </div>
